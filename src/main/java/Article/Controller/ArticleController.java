@@ -2,7 +2,10 @@ package Article.Controller;
 
 import Article.Model.Article;
 import Article.Model.ArticleFunction;
+import Article.Model.Commend;
+import Article.Model.CommendFuction;
 import Article.View.ArticleView;
+import Article.View.CommendView;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,6 +13,9 @@ import java.util.Scanner;
 public class ArticleController {
     ArticleFunction articleFunction = new ArticleFunction();
     ArticleView articleView = new ArticleView();
+    CommendView commendView = new CommendView();
+    CommendController commendController = new CommendController();
+    CommendFuction commendFuction = new CommendFuction();
     Scanner scanner = new Scanner(System.in);
     ArrayList<Article> articles = new ArrayList<>();
     public void add(){
@@ -76,6 +82,32 @@ public class ArticleController {
         }else{
             article.setView_count(article.getView_count() + 1);
             articleView.PrintAlllist(article);
+            Outter:
+            while (true) {
+                System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
+                int index = Integer.parseInt(scanner.nextLine());
+                switch (index) {
+                    case 1:
+                        System.out.println("댓글 등록");
+                        commendController.commendAdd();
+                        break;
+                    case 2:
+                        System.out.println("추천");
+                        break;
+                    case 3:
+                        System.out.println("수정");
+                        break;
+                    case 4:
+                        System.out.println("삭제");
+                        break;
+                    case 5:
+                        System.out.println("목록으로");
+                        break Outter;
+                    default:
+                        System.out.println("잘못입력하셨습니다.");
+                        break;
+                }
+            }
         }
     }
     public void search(){
